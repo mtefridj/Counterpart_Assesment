@@ -3,6 +3,7 @@ import sqlite3
 import streamlit as st
 import pydeck as pdk
 import us
+import geonames
 
 conn = sqlite3.connect('mock.db')
 
@@ -67,13 +68,13 @@ hit_rate_industry = pd.read_sql(query_industry, conn)
 # Assuming hit_rate_state and hit_rate_industry are pandas DataFrames
 
 # Add latitude and longitude for each state
-hit_rate_state['latitude'] = hit_rate_state['state'].apply(
-    lambda x: us.states.lookup(x).capital_latlong.split(',')[0] if us.states.lookup(x) is not None and us.states.lookup(x).capital_latlong is not None else None
-)
+# Get the capital of each state
+hit_rate_state['capital'] = hit_rate_state['state'].apply(lambda x: us.states.lookup(x).capital if us.states.lookup(x) is not None else None)
 
-hit_rate_state['longitude'] = hit_rate_state['state'].apply(
-    lambda x: us.states.lookup(x).capital_latlong.split(',')[1] if us.states.lookup(x) is not None and us.states.lookup(x).capital_latlong is not None else None
-)
+# Get the latitude and longitude of each capital
+geocoder = geonames.Geocoder()
+hit_rate_state['latitude'] = hit_rate_state['capital'].apply(lambda x: geocoder.query(x).lat if x is not None else None)
+hit_rate_state['longitude'] = hit_rate_state['capital'].apply(lambda x: geocoder.query(x).lng if x is not None else None)
 
 
 # Create a map with pydeck
