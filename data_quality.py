@@ -21,6 +21,8 @@ group by s.state
 state_hit_rate as (
 select
     state,
+    policy_count,
+    quote_count,
     cast(policy_count as real) / nullif(quote_count,0) as hit_rate
 from state_counts
 group by state
@@ -52,6 +54,8 @@ group by s.industry
 industry_hit_rate as (
 select
     industry,
+    policy_count,
+    quote_count,
     cast(policy_count as real) / nullif(quote_count,0) as hit_rate
 from industry_counts
 group by industry
@@ -150,7 +154,7 @@ hit_rate_industry = pd.read_sql(query_industry, conn)
 
 
 # Create a bar chart for the hit_rate_state DataFrame
-st.bar_chart(hit_rate_state[['state', 'hit_rate']].set_index('state'))
+st.bar_chart(hit_rate_state.set_index('state'))
 
 # Create a bar chart for the hit_rate_industry DataFrame
 hit_rate_industry
