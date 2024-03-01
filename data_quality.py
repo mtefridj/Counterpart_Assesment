@@ -126,7 +126,7 @@ hit_rate_state['longitude'] = hit_rate_state['state'].apply(lambda x: state_capi
 
 # Create a map with pydeck
 map = pdk.Deck(
-    map_style='mapbox://styles/mapbox/light-v9',
+    map_style=None,
     initial_view_state=pdk.ViewState(
         latitude=37.76,
         longitude=-122.4,
@@ -151,6 +151,6 @@ st.pydeck_chart(map)
 st.bar_chart(hit_rate_state.set_index('state'))
 
 # Create a bar chart for the hit_rate_industry DataFrame
-st.bar_chart(hit_rate_industry.set_index('industry'))
+st.bar_chart(data=hit_rate_industry.set_index('industry'), use_container_width=True)
 
 conn.close()
