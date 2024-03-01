@@ -67,8 +67,12 @@ hit_rate_industry = pd.read_sql(query_industry, conn)
 # Assuming hit_rate_state and hit_rate_industry are pandas DataFrames
 
 # Add latitude and longitude for each state
-hit_rate_state['latitude'] = hit_rate_state['state'].apply(lambda x: us.states.lookup(x).capital_latlong.split(',')[0])
-hit_rate_state['longitude'] = hit_rate_state['state'].apply(lambda x: us.states.lookup(x).capital_latlong.split(',')[1])
+hit_rate_state['latitude'] = hit_rate_state['state'].apply(
+    lambda x: us.states.lookup(x).capital_latlong.split(',')[0] if us.states.lookup(x) is not None else None
+)
+hit_rate_state['latitude'] = hit_rate_state['state'].apply(
+    lambda x: us.states.lookup(x).capital_latlong.split(',')[1] if us.states.lookup(x) is not None else None
+)
 
 
 
