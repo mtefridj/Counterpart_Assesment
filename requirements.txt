@@ -4,4 +4,3 @@ pydeck
 us
 sqlite3
 json
-data_quality

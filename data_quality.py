@@ -2,7 +2,6 @@ import pandas as pd
 import sqlite3
 import streamlit as st
 import pydeck as pdk
-import data_quality
 import us
 
 conn = sqlite3.connect('mock.db')
@@ -66,8 +65,6 @@ where hit_rate is not null
 hit_rate_industry = pd.read_sql(query_industry, conn)
 
 # Assuming hit_rate_state and hit_rate_industry are pandas DataFrames
-hit_rate_state = data_quality.hit_rate_state
-hit_rate_industry = data_quality.hit_rate_industry
 
 # Add latitude and longitude for each state
 hit_rate_state['latitude'] = hit_rate_state['state'].apply(lambda x: us.states.lookup(x).capital_latlong.split(',')[0])
