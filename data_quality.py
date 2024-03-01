@@ -147,8 +147,10 @@ map = pdk.Deck(
 # Display the map in Streamlit
 st.pydeck_chart(map)
 
+
+hit_rate_state
 # Create a bar chart for the hit_rate_state DataFrame
-st.bar_chart(hit_rate_state.set_index('state'))
+st.bar_chart(hit_rate_state[['state', 'hit_rate']].set_index('state'))
 
 # Create a bar chart for the hit_rate_industry DataFrame
 st.bar_chart(data=hit_rate_industry.set_index('industry'), use_container_width=True)
