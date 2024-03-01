@@ -2,5 +2,3 @@ streamlit
 pandas
 pydeck
 us
-sqlite3
-json
