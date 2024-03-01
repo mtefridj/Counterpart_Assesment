@@ -76,6 +76,6 @@ hit_rate_state
 
 # Create a bar chart for the hit_rate_industry DataFrame
 hit_rate_industry
-st.bar_chart(data=hit_rate_industry.set_index('industry'), use_container_width=True)
+st.bar_chart(data=hit_rate_industry[['industry', 'hit_rate']].set_index('industry'), use_container_width=True)
 
 conn.close()

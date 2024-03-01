@@ -1,6 +1,12 @@
 # Counterpart_Assesment
 Assessment for Counterpart
 
+## Visualization
+
+https://mtefridj.streamlit.app/
+
+![Alt text](ERD.drawio.png)
+
 ## Data Processing
 
 This project uses SQL for data processing. Here's an overview of the steps involved:
