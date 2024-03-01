@@ -97,9 +97,11 @@ left join submissions s on s.application_id = q.application_id
 
 fact_quotes_submission = pd.read_sql(query_fact, conn)
 
-fact_quotes_submission.to_sql('fact_policy', conn, if_exists='replace', index=False)
+fact_quotes_submission.to_sql('fact_submissions', conn, if_exists='replace', index=False)
 
-fact_quotes_submission_new = pd.read_sql('select * from fact_policy', conn)
+fact_quotes_submission_new = pd.read_sql('select * from fact_submissions', conn)
 
 print(fact_quotes_submission_new.head())
+
+conn.close()
 
