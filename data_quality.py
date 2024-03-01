@@ -68,12 +68,12 @@ hit_rate_industry = pd.read_sql(query_industry, conn)
 
 # Add latitude and longitude for each state
 hit_rate_state['latitude'] = hit_rate_state['state'].apply(
-    lambda x: us.states.lookup(x).capital_latlong.split(',')[0] if us.states.lookup(x) is not None else None
-)
-hit_rate_state['latitude'] = hit_rate_state['state'].apply(
-    lambda x: us.states.lookup(x).capital_latlong.split(',')[1] if us.states.lookup(x) is not None else None
+    lambda x: us.states.lookup(x).capital_latlong.split(',')[0] if us.states.lookup(x) is not None and us.states.lookup(x).capital_latlong is not None else None
 )
 
+hit_rate_state['longitude'] = hit_rate_state['state'].apply(
+    lambda x: us.states.lookup(x).capital_latlong.split(',')[1] if us.states.lookup(x) is not None and us.states.lookup(x).capital_latlong is not None else None
+)
 
 
 # Create a map with pydeck
